@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>languages de Programación</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            font-size: 62.5%;
+            background: #f0f4f8;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        ul,
+        ol {
+            max-width: 50rem;
+            min-height: 15rem;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        li {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #5f5e5e;
+            margin-bottom: 1.5rem;
+            margin-left: 1rem;
+        }
+
+        #add-btn {
+            display: block;
+            margin: 1rem auto;
+            padding: 1rem 2rem;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+        }
+
+        #add-btn:hover {
+            background-color: #2980b9;
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 1rem;
+            font-weight: bold;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .success {
+            color: green;
+            font-size: 1rem;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main>
+        <h1>languages de Programación más populares</h1>
+
+        <ol id="popular-list">
+            <!-- Se agregarán manualmente desde JS -->
+        </ol>
+
+        <button id="add-btn">Agregar language popular</button>
+        <div id="message"></div>
+
+        <ul id="list-backend">
+            <!-- Se llenará con un array -->
+        </ul>
+    </main>
+
+    <script>
+        const popularList = document.getElementById("popular-list");
+        const messageDiv = document.getElementById("message");
+
+        // Agregar elementos uno por uno
+        const li1 = document.createElement("li");
+        li1.textContent = "JavaScript";
+        popularList.appendChild(li1);
+
+        const li2 = document.createElement("li");
+        li2.textContent = "Python";
+        popularList.appendChild(li2);
+
+        const li3 = document.createElement("li");
+        li3.textContent = "TypeScript";
+        popularList.appendChild(li3);
+
+        const li4 = document.createElement("li");
+        li4.textContent = "Java";
+        popularList.appendChild(li4);
+
+        const li5 = document.createElement("li");
+        li5.textContent = "Go";
+        popularList.appendChild(li5);
+
+        const li6 = document.createElement("li");
+        li6.textContent = "Rust";
+        popularList.appendChild(li6);
+
+        // Lista desordenada con array
+        const backend = ["Node.js", "PHP", "Ruby", "Java", "Python", "C#", "Go"];
+        const listaBackend = document.getElementById("list-backend");
+
+        backend.forEach(language => {
+            const li = document.createElement("li");
+            li.textContent = language;
+            listaBackend.appendChild(li);
+        });
+
+        // Función para mostrar message en pantalla
+        function displayMessage(text, type) {
+            messageDiv.textContent = text;
+            messageDiv.className = type;
+            setTimeout(() => {
+                messageDiv.textContent = "";
+                messageDiv.className = "";
+            }, 3000);
+        }
+
+        // Botón para agregar languages
+        const addButton = document.getElementById("add-btn");
+        addButton.addEventListener("click", () => {
+            const newLanguage = prompt("Escribe un newLanguage language popular:");
+            if (!newLanguage || newLanguage.trim() === "") return;
+
+            const normalizedName = newLanguage.trim().toLowerCase();
+
+            const languageExist = Array.from(popularList.children).some(li =>
+                li.textContent.trim().toLowerCase() === normalizedName
+            );
+
+            if (languageExist) {
+                displayMessage("Ese language ya está en la lista.", "error");
+            } else {
+                const li = document.createElement("li");
+                li.textContent = newLanguage.trim();
+                popularList.appendChild(li);
+                displayMessage("language agregado correctamente.", "success");
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>
